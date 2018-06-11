@@ -1,7 +1,7 @@
 # CARTO's Changelog
 
 ## v1.2.0-carto.1
-Released 2018-mm-dd
+Released 2018-06-11
 
 Bug fixes:
  * Improves performance of COPY TO by sending bigger chunks through low level `push()`. See https://github.com/CartoDB/node-pg-copy-streams/pull/1
