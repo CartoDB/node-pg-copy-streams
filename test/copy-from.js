@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert')
 var gonna = require('gonna')
 
@@ -68,6 +70,6 @@ var testSingleEnd = function() {
     if (count == 1) fromClient.end();
   })
   stream.end(Buffer('1\n'))
-    
+
 }
 testSingleEnd()

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(txt, options) {
   return new CopyStreamQuery(txt, options)
 }
@@ -77,7 +79,7 @@ CopyStreamQuery.prototype._transform = function(chunk, enc, cb) {
       case code.NoticeResponse:
       case code.NotificationResponse:
         break;
-  
+
       case code.ErrorResponse:
       case code.CopyDone:
         this.pushBufferIfneeded();
