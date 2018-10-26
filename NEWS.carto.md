@@ -1,7 +1,7 @@
 # CARTO's Changelog
 
 ## v1.2.0-carto.2
-Released 2018-mm-dd
+Released 2018-10-26
 
 Bug fixes:
  * Make all modules to use strict mode semantics.
