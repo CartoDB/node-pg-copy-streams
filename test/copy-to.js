@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert')
 var gonna = require('gonna')
 
@@ -29,7 +31,7 @@ var testComparators = function() {
     assert(copy1._gotCopyOutResponse, 'should have received CopyOutResponse')
     assert(!copy1._remainder, 'Message with no additional data (len=Int4Len+0) should not leave a remainder')
   }))
-  copy1.end(new Buffer([code.CopyOutResponse, 0x00, 0x00, 0x00, 0x04])); 
+  copy1.end(new Buffer([code.CopyOutResponse, 0x00, 0x00, 0x00, 0x04]));
 
 
 }
@@ -104,8 +106,8 @@ var testNoticeResponse = function() {
       stream.on('data', function(data) {
       })
       stream.on('error', callback)
-     
-      // make sure stream is pulled from 
+
+      // make sure stream is pulled from
       stream.pipe(concat(callback.bind(null,null)))
     }
 
@@ -118,5 +120,3 @@ var testNoticeResponse = function() {
 }
 
 testNoticeResponse();
-
-
