@@ -1,3 +1,7 @@
+## Note
+
+This is forked repository from [brianc/node-pg-copy-streams](https://github.com/brianc/node-pg-query-stream)
+
 ## pg-copy-streams
 
 [![Build Status](https://travis-ci.org/brianc/node-pg-copy-streams.svg)](https://travis-ci.org/brianc/node-pg-copy-streams)
