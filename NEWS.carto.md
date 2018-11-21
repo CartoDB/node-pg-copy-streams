@@ -1,11 +1,12 @@
 # CARTO's Changelog
 
 ## v1.2.0-carto.3
-Released 2018-mm-dd
+Released 2018-11-21
 
 Features:
  * Drop support for Node.js 0.12, 4 and, 5.
  * Add support for Node.js 8 and 10.
+ * Add package-lock.json
  * Do not use deprecated Buffer constructors.
 
 ## v1.2.0-carto.2
