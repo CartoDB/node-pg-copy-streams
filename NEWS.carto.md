@@ -1,5 +1,8 @@
 # CARTO's Changelog
 
+## v1.2.0-carto.4
+Released 2018-mm-dd
+
 ## v1.2.0-carto.3
 Released 2018-11-21
 
