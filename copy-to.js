@@ -23,6 +23,7 @@ CopyStreamQuery.prototype.submit = function(connection) {
   connection.query(this.text)
   this.connection = connection
   this.connection.removeAllListeners('copyData')
+  this.on('end', () => this._detach())
   connection.stream.pipe(this)
 }
 
@@ -84,7 +85,6 @@ CopyStreamQuery.prototype._transform = function(chunk, enc, cb) {
       case code.ErrorResponse:
       case code.CopyDone:
         pushBufferIfneeded();
-        this._detach()
         this.push(null)
         return cb();
         break;
