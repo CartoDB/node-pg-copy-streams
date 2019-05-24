@@ -3,6 +3,9 @@
 ## v2.2.0-carto.1
 Released 2018-mm-dd
 
+Bug fixes:
+ * Copy to: ensure stream is detached when finished
+
 ## v1.2.0-carto.3
 Released 2018-11-21
 
