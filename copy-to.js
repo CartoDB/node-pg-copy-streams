@@ -105,7 +105,7 @@ CopyStreamQuery.prototype._transform = function(chunk, enc, cb) {
         case code.ParameterStatus:
         case code.NoticeResponse:
         case code.NotificationResponse:
-          console.log("Got an interspersed message: " + message);
+          this.emit('warning', 'Got an interspersed message: ' + message);
           break;
       }
       offset += (length - Int32Len);
