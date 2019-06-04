@@ -95,13 +95,20 @@ CopyStreamQuery.prototype._transform = function(chunk, enc, cb) {
     length = chunk.readUInt32BE(offset+Byte1Len)
     if(chunk.length >= (offset + Byte1Len + length)) {
       offset += Byte1Len + Int32Len
-      if (needPush) {
-        var row = chunk.slice(offset, offset + length - Int32Len)
-        this.rowCount++
-        row.copy(buffer, buffer_offset);
-        buffer_offset += row.length;
+      var message = chunk.slice(offset, offset + length - Int32Len)
+      switch(messageCode) {
+        case code.CopyData:
+          this.rowCount++;
+          message.copy(buffer, buffer_offset);
+          buffer_offset += message.length;
+          break;
+        case code.ParameterStatus:
+        case code.NoticeResponse:
+        case code.NotificationResponse:
+          this.emit('warning', 'Got an interspersed message: ' + message);
+          break;
       }
-      offset += (length - Int32Len)
+      offset += (length - Int32Len);
     } else {
       // we need more chunks for a complete message
       break;
