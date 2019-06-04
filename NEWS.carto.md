@@ -1,10 +1,11 @@
 # CARTO's Changelog
 
 ## v2.2.0-carto.1
-Released 2018-mm-dd
+Released 2019-mm-dd
 
 Bug fixes:
  * Copy to: ensure stream is detached when finished
+ * Copy to: deal with interspersed messages properly. See [#9](https://github.com/CartoDB/node-pg-copy-streams/pull/9)
 
 ## v1.2.0-carto.3
 Released 2018-11-21
