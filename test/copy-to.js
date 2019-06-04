@@ -151,6 +151,24 @@ var testInterspersedMessageDoesNotBreakCopyFlow = function() {
 };
 testInterspersedMessageDoesNotBreakCopyFlow();
 
+var testInterspersedMessageEmitsWarnign = function() {
+  var toClient = client();
+  toClient.query(warnAndReturnOne, (err, res) => {
+    var q = "COPY (SELECT * FROM pg_temp.test_warn_return_one()) TO STDOUT WITH (FORMAT 'csv', HEADER true)";
+    var stream = toClient.query(copy(q));
+    var done = gonna('got expected warning event', 1000, function() {
+      toClient.end();
+    });
+
+    stream.on('warning', function(msg) {
+      assert(msg.match(/Got an interspersed message:.*WARNING.*hey, this is returning one/),
+             'did not get expected warning for interspersed message in COPY TO');
+      done();
+    })
+  });
+};
+testInterspersedMessageEmitsWarnign();
+
 var testClientReuse = function() {
   var c = client();
   var limit = 100000;
