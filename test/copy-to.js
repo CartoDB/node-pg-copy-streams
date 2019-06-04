@@ -117,6 +117,40 @@ var testNoticeResponse = function() {
 }
 testNoticeResponse();
 
+var warnAndReturnOne = `
+CREATE OR REPLACE FUNCTION pg_temp.test_warn_return_one()
+RETURNS INTEGER
+AS $$
+BEGIN
+  RAISE WARNING 'hey, this is returning one';
+  RETURN 1;
+END;
+$$ LANGUAGE plpgsql`;
+
+var testInterspersedMessageDoesNotBreakCopyFlow = function() {
+  var toClient = client();
+  toClient.query(warnAndReturnOne, (err, res) => {
+    var q = "COPY (SELECT * FROM pg_temp.test_warn_return_one()) TO STDOUT WITH (FORMAT 'csv', HEADER true)";
+    var stream = toClient.query(copy(q));
+    var done = gonna('got expected COPY TO payload', 1000, function() {
+      toClient.end();
+    });
+
+    stream.pipe(concat(function(buf) {
+      res = buf.toString('utf8')
+    }));
+
+    stream.on('end', function() {
+      var expected = "test_warn_return_one\n1\n";
+      assert.equal(res, expected);
+      // note the header counts as a row
+      assert.equal(stream.rowCount, 2, 'should have rowCount = 2 but got ' + stream.rowCount);
+      done();
+    });
+  });
+};
+testInterspersedMessageDoesNotBreakCopyFlow();
+
 var testClientReuse = function() {
   var c = client();
   var limit = 100000;
